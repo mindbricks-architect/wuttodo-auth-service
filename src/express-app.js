@@ -26,6 +26,8 @@ const { edgeRouter } = require("edgeLayer");
 
 const { integrationRouter } = require("apiLayer");
 
+const createEventToken = require("./utils/eventToken");
+
 const app = express();
 
 const unless = function (paths, middleware) {

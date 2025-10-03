@@ -5,6 +5,7 @@ const path = require("path");
 
 const { createSessionManager } = require("sessionLayer");
 const createServiceController = require("./create-service-controller");
+const createEventToken = require("../../utils/eventToken");
 
 const initWithRestController = async (name, routeName, req, res) => {
   const restController = createServiceController(name, routeName, req, res);
@@ -115,6 +116,19 @@ const addSessionRoutes = () => {
         });
     } catch (err) {
       res.status(401).send(err.message);
+    }
+  });
+
+  router.get("/realtimetoken", async (req, res) => {
+    try {
+      await initWithRestController("realtimetoken", "realtimetoken", req, res);
+      const token = await createEventToken(req.session);
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send({
+        eventToken: token,
+      });
+    } catch (err) {
+      res.status(err.statusCode ?? 500).send(err.message);
     }
   });
 };

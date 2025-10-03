@@ -1,56 +1,97 @@
+const jwt = require("jsonwebtoken");
+
 const PublicObjectEvents = {};
 
 const ProtectedObjectEvents = {};
 
 const PrivateObjectEvents = {
   user: [
-    "user-retrived",
-    "user-updated",
-    "user-registered",
-    "user-deleted",
-    "users-listed",
-    "userrole-updated",
-    "userpassword-updated",
-    "briefuser-retrived",
+    "wuttodo-auth-service-user-retrived",
+    "wuttodo-auth-service-user-updated",
+    "wuttodo-auth-service-user-registered",
+    "wuttodo-auth-service-user-deleted",
+    "wuttodo-auth-service-users-listed",
+    "wuttodo-auth-service-userrole-updated",
+    "wuttodo-auth-service-userpassword-updated",
+    "wuttodo-auth-service-briefuser-retrived",
   ],
 };
 
 const createAdminToken = async (session) => {
   // add all topics if superAdmin,saasAdmin,admin
   // add tenantLevel topics if tenantAdmin
-  // add project-code condition
   // add tenantId condition tenantAdmin
   // add tenantId condition if superAdmin and saasAdmin if subscription request in tenantLevel
 
   const topics = [];
-  for (const key of ObjectKeys(PublicObjectEvents)) {
+
+  for (const key of Object.keys(PublicObjectEvents)) {
     topics.push(...PublicObjectEvents[key]);
   }
-  for (const key of ObjectKeys(ProtectedObjectEvents)) {
+  for (const key of Object.keys(ProtectedObjectEvents)) {
     topics.push(...ProtectedObjectEvents[key]);
   }
-  for (const key of ObjectKeys(PrivateObjectEvents)) {
+  for (const key of Object.keys(PrivateObjectEvents)) {
     topics.push(...PrivateObjectEvents[key]);
   }
+
+  const payload = {
+    rights: [
+      {
+        topics: topics,
+      },
+    ],
+  };
+
+  const jwtKey = process.env.PROJECT_TOKEN_KEY ?? "realtime.token.key";
+  return jwt.sign(payload, jwtKey);
 };
 
 const createUserToken = async (session) => {
-  // add all public and protected topics
-  // add only tenantLevel topics if multi tenant
-  // add project-code condition
-  // add tenantId condition if multi tenant
-  // add all private topics
-  // add userId ownerId condition for private topics
+  const topics = [];
+
+  for (const key of Object.keys(PublicObjectEvents)) {
+    topics.push(...PublicObjectEvents[key]);
+  }
+
+  for (const key of Object.keys(ProtectedObjectEvents)) {
+    topics.push(...ProtectedObjectEvents[key]);
+  }
+
+  const payload = {
+    rights: [
+      {
+        topics: topics,
+      },
+    ],
+  };
+
+  const privateTopics = [];
+  for (const key of Object.keys(PrivateObjectEvents)) {
+    privateTopics.push(...PrivateObjectEvents[key]);
+  }
+
+  payload.rights.push({
+    topics: privateTopics,
+    logic: {
+      type: "eq",
+      key: "_ownerId",
+      value: session.userId,
+    },
+  });
+
+  const jwtKey = process.env.PROJECT_TOKEN_KEY ?? "realtime.token.key";
+  return jwt.sign(payload, jwtKey);
 };
 
 const createEventToken = async (session) => {
   if (!session) return null;
-  const userRole = req.session.roleId;
+  const userRole = session.roleId;
   const adminRoles = ["superAdmin", "admin"];
-  if (adminRoles.include[userRole]) {
+  if (adminRoles.includes(userRole)) {
     return await createAdminToken(session);
   }
   return await createUserToken(session);
 };
 
-module.export = createEventToken;
+module.exports = createEventToken;

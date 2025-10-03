@@ -152,6 +152,7 @@ class WuttodoLoginSession extends WuttodoSession {
     const session = await this.loginUser(byPassword, bySubject);
 
     session._USERID = session.userId;
+    session._tenantId = this._;
 
     session.checkTokenMark = "wuttodo-inapp-token";
     session._USERID = session.userId;
