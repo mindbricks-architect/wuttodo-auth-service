@@ -3,8 +3,8 @@ const crypto = require("crypto");
 
 const kafkaUri = process.env.KAFKA_URI || "localhost:9092";
 const serviceName = process.env.SERVICE_CODENAME ?? "mindbricks-service";
-const kafkaUserName = process.env.KAFKA_USERNAME ?? "user";
-const kafkaPassword = process.env.KAFKA_PASS ?? "password";
+const kafkaUserName = process.env.KAFKA_USERNAME;
+const kafkaPassword = process.env.KAFKA_PASS;
 
 let kafkaProducer = null;
 let kafkaClient = null;
@@ -50,11 +50,15 @@ const connectToKafka = async () => {
     brokers: [kafkaUri],
     logLevel: logLevel.ERROR,
     logCreator,
-    sasl: {
-      mechanism: "plain",
-      username: kafkaUserName,
-      password: kafkaPassword,
-    },
+    ...(kafkaUserName && kafkaPassword
+      ? {
+          sasl: {
+            mechanism: "plain",
+            username: kafkaUserName,
+            password: kafkaPassword,
+          },
+        }
+      : {}),
   });
 
   kafkaProducer = kafkaClient.producer();

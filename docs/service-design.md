@@ -1,7 +1,7 @@
 # Service Design Specification
 
 **Athentication documentation**
--Version:**`1.0.1`**
+-Version:**`1.0.2`**
 
 ## Scope
 
@@ -95,7 +95,7 @@ These definitions allow Mindbricks to dynamically extract identity and authoriza
 
 ### User Settings
 
-**Super Admin User Email**: `admin@aadmin.com`\*\*
+**Super Admin User Email**: `admin@admin.com`\*\*
 The login email of the super admin user. This user has full permissions across the project and is not tenant-scoped.
 If not defined, the project owner's email is used.
 This email must be unique and valid to support email-based features like verification and password reset.
@@ -322,6 +322,9 @@ If you want to use the cache by other select criteria, you can configure any dat
 Default values are automatically assigned to properties when a new object is created, if no value is provided in the request body.
 Since default values are applied on db level, they should be literal values, not expressions.If you want to use expressions, you can use transposed parameters in any business API to set default values dynamically.
 
+- **email**: &#39;default&#39;
+- **password**: &#39;default&#39;
+- **fullname**: &#39;default&#39;
 - **roleId**: user
 
 ### Always Create with Default Values

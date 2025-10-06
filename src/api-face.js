@@ -1,18 +1,18 @@
 const { inject } = require("mindbricks-api-face");
 
 module.exports = (app) => {
-  const authUrl = (process.env.SERVICE_URL ?? "mindbricks.com").replace(
-    process.env.SERVICE_SHORT_NAME,
-    "auth",
-  );
   const basePath =
-    process.env.SERVICE_URL_SUFFIX ?? `/${process.env.SERVICE_SHORT_NAME}-api`;
+    process.env.SERVICE_URL_SUFFIX ?? `${process.env.SERVICE_SHORT_NAME}-api`;
+  const baseUrl = process.env.SERVICE_URL ?? "mindbricks.com";
+  const shortName = process.env.SERVICE_SHORT_NAME?.toLowerCase();
+  const authUrl = shortName ? baseUrl.replace(shortName, "auth") : baseUrl;
+
   const config = {
     basePath: basePath,
     name: "wuttodo - auth",
     brand: {
       name: "wuttodo",
-      image: "https://mindbricks.com/favicon.ico",
+      image: "https://minioapi.masaupp.com/mindbricks/favico.ico",
       moduleName: "auth",
       version: process.env.SERVICE_VERSION || "1.0.0",
     },

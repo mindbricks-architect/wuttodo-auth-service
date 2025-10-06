@@ -36,7 +36,20 @@ const createUser = async (data) => {
   try {
     validateData(data);
 
-    const newuser = await User.create(data);
+    const current_user = data.id ? await User.findByPk(data.id) : null;
+    let newuser = null;
+
+    if (current_user) {
+      delete data.id;
+      data.isActive = true;
+      await current_user.update(data);
+      newuser = current_user;
+    }
+
+    if (!newuser) {
+      newuser = await User.create(data);
+    }
+
     const _data = newuser.getData();
     await indexDataToElastic(_data);
     return _data;

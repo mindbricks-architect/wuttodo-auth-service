@@ -150,7 +150,7 @@ app.use(
 );
 
 app.get("/favicon.ico", (req, res) => {
-  const iconUrl = "https://mindbricks.com/favicon.ico";
+  const iconUrl = "https://minioapi.masaupp.com/mindbricks/favico.ico";
   res.redirect(iconUrl);
 });
 

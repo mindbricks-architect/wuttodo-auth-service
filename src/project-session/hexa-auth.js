@@ -244,7 +244,7 @@ class HexaAuth {
 
     const token = await createJWT(
       bucketPayload,
-      process.env.BUCKET_TOKEN_KEY ?? "bucket.token.key",
+      process.env.PROJECT_TOKEN_KEY ?? "bucket.token.key",
       "30d",
     );
     console.log("Bucket token created for userId", session._USERID);

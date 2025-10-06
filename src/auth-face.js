@@ -89,7 +89,7 @@ module.exports = (app) => {
       name: "wuttodo",
       version: process.env.SERVICE_VERSION || "1.0.0",
       url: authUrl,
-      logo: "https://mindbricks.com/favicon.ico",
+      logo: "https://minioapi.masaupp.com/mindbricks/favico.ico",
       showLogo: true,
     },
     theme: DEFAULT_THEME,
