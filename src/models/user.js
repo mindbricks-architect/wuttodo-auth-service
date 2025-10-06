@@ -13,16 +13,19 @@ const User = sequelize.define(
       //  A string value to represent the user's email.
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "default",
     },
     password: {
       //  A string value to represent the user's password. It will be stored as hashed.
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "default",
     },
     fullname: {
       // A string value to represent the fullname of the user
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "default",
     },
     avatar: {
       // The avatar url of the user. A random avatar will be generated if not provided

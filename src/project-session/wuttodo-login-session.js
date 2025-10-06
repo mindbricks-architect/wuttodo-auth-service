@@ -237,7 +237,7 @@ class WuttodoLoginSession extends WuttodoSession {
       const absUserData = {
         id: this.superAdminId,
         fullname: "Root User",
-        email: "admin@aadmin.com",
+        email: "admin@admin.com",
         emailVerified: true,
 
         password: hashString("superadmin"),

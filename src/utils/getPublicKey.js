@@ -14,10 +14,12 @@ module.exports = async (keyId) => {
       console.log("Keys folder created:", publicKeyFolder);
     }
 
-    const userServicePublickKeyApi =
-      process.env.SERVICE_URL.replace(process.env.SERVICE_SHORT_NAME, "auth") +
-      "/publickey" +
-      (keyId ? "?keyId=" + keyId : "");
+    const baseUrl = process.env.SERVICE_URL || "mindbricks.com";
+    const shortName = process.env.SERVICE_SHORT_NAME?.toLowerCase();
+    const authUrl = shortName ? baseUrl.replace(shortName, "auth") : baseUrl;
+
+    const userServicePublickKeyApi = authUrl;
+    "/publickey" + (keyId ? "?keyId=" + keyId : "");
 
     const publicKey = await getRestData(userServicePublickKeyApi);
     if (publicKey instanceof Error) {

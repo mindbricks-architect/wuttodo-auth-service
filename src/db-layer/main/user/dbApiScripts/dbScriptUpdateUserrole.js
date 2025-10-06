@@ -100,7 +100,7 @@ const dbScriptUpdateUserrole = async (apiManager) => {
 
   try {
     for (const key of Object.keys(dataClause)) {
-      if (dataClause[key] == null) {
+      if (dataClause[key] === undefined) {
         delete dataClause[key];
       }
     }

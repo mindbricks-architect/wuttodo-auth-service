@@ -88,7 +88,7 @@ class UpdateUserManager extends UserManager {
 
     let isEmpty = true;
     for (const key of Object.keys(dataClause)) {
-      if (dataClause[key] != null) {
+      if (dataClause[key] !== undefined) {
         isEmpty = false;
         break;
       }
