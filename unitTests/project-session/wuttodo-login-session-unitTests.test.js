@@ -292,27 +292,12 @@ describe("WuttodoLoginSession", () => {
       expect(res.send.calledOnce).to.be.true;
     });
   });
-  describe("initUserManager", () => {
-    it("should create user manager if not exists", async () => {
-      mocks.getUserById.resolves(null);
-      await session.initUserManager();
-      expect(mocks.createUser.calledOnce).to.be.true;
-    });
-
-    it("should update user manager if exists", async () => {
-      mocks.getUserById.resolves({ id: "someid" });
-      await session.initUserManager();
-      expect(mocks.updateUserById.calledOnce).to.be.true;
-    });
-  });
   describe("init", () => {
-    it("should call initSuperAdmin and initUserManager", async () => {
+    it("should call initSuperAdmin", async () => {
       const spy1 = sinon.stub(session, "initSuperAdmin").resolves();
-      const spy2 = sinon.stub(session, "initUserManager").resolves();
 
       await session.init();
       expect(spy1.calledOnce).to.be.true;
-      expect(spy2.calledOnce).to.be.true;
     });
   });
 });

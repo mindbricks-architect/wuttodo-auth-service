@@ -82,20 +82,6 @@ class UpdateUserMcpController extends AuthMcpController {
         .describe(
           "This id paremeter is used to select the required data object that will be updated",
         ),
-
-      fullname: z
-        .string()
-        .max(255)
-        .optional()
-        .describe("A string value to represent the fullname of the user"),
-
-      avatar: z
-        .string()
-        .max(255)
-        .optional()
-        .describe(
-          "The avatar url of the user. A random avatar will be generated if not provided",
-        ),
     };
   }
 }

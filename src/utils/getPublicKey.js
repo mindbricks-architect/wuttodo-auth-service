@@ -3,6 +3,7 @@ const fs = require("fs");
 const { getRestData } = require("common");
 
 module.exports = async (keyId) => {
+  let userServicePublickKeyApi = "";
   try {
     const keysFolder = process.env.KEYS_FOLDER || "keys";
 
@@ -14,12 +15,10 @@ module.exports = async (keyId) => {
       console.log("Keys folder created:", publicKeyFolder);
     }
 
-    const baseUrl = process.env.SERVICE_URL || "mindbricks.com";
-    const shortName = process.env.SERVICE_SHORT_NAME?.toLowerCase();
-    const authUrl = shortName ? baseUrl.replace(shortName, "auth") : baseUrl;
+    const authUrl = process.env.AUTH_SERVICE_URL;
 
-    const userServicePublickKeyApi = authUrl;
-    "/publickey" + (keyId ? "?keyId=" + keyId : "");
+    userServicePublickKeyApi =
+      authUrl + "/publickey" + (keyId ? "?keyId=" + keyId : "");
 
     const publicKey = await getRestData(userServicePublickKeyApi);
     if (publicKey instanceof Error) {
@@ -43,11 +42,14 @@ module.exports = async (keyId) => {
       );
       return publicKey;
     } else {
-      console.log("Public key not found from the server");
+      console.log(
+        "Public key not found from the server",
+        userServicePublickKeyApi,
+      );
       return null;
     }
   } catch (err) {
-    console.log("Error in getPublicKey");
+    console.log("Error in getPublicKey", userServicePublickKeyApi);
     console.log(err?.message || err);
     return null;
   }

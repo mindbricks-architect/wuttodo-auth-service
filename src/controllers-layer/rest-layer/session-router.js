@@ -3,7 +3,6 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-const { createSessionManager } = require("sessionLayer");
 const createServiceController = require("./create-service-controller");
 const createEventToken = require("../../utils/eventToken");
 
@@ -201,9 +200,6 @@ const addLoginRoutes = () => {
   });
 
   router.post("/logout", async (req, res) => {
-    // const loginSession = createSessionManager();
-    // loginSession.logoutUserController(req, res, next);
-
     try {
       const restController = createServiceController(
         "logout",

@@ -285,13 +285,11 @@ Manager triggers API-level events, sending relevant messages to Kafka or other i
 Client parameters are the api parameters that are visible to client and will be populated by the client.
 Note that some api parameters are not visible to client because they are populated by internal system, session, calculation or joint sources.
 
-The `updateUser` api has got 3 client parameters
+The `updateUser` api has got 1 client parameter
 
-| Parameter | Type   | Required | Population             |
-| --------- | ------ | -------- | ---------------------- |
-| userId    | ID     | true     | request.params?.userId |
-| fullname  | String | false    | request.body?.fullname |
-| avatar    | String | false    | request.body?.avatar   |
+| Parameter | Type | Required | Population             |
+| --------- | ---- | -------- | ---------------------- |
+| userId    | ID   | true     | request.params?.userId |
 
 ### REST Request
 
@@ -301,10 +299,7 @@ To access the api you can use the **REST** controller with the path **PATCH /v1/
 axios({
   method: "PATCH",
   url: `/v1/users/${userId}`,
-  data: {
-    fullname: "String",
-    avatar: "String",
-  },
+  data: {},
   params: {},
 });
 ```

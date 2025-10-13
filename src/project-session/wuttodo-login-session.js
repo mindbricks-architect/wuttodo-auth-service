@@ -229,7 +229,6 @@ class WuttodoLoginSession extends WuttodoSession {
 
   async init() {
     await this.initSuperAdmin();
-    await this.initUserManager();
   }
 
   async initSuperAdmin() {
@@ -237,7 +236,7 @@ class WuttodoLoginSession extends WuttodoSession {
       const absUserData = {
         id: this.superAdminId,
         fullname: "Root User",
-        email: "admin@admin.com",
+        email: "admin@admin.comm",
         emailVerified: true,
 
         password: hashString("superadmin"),
@@ -255,33 +254,6 @@ class WuttodoLoginSession extends WuttodoSession {
       }
     } catch (err) {
       hexaLogger.insertError("Error while creating super admin user", err);
-    }
-  }
-
-  async initUserManager() {
-    try {
-      const userManagerId = this.superAdminId.replaceAll("f", "b");
-      const absUserData = {
-        id: userManagerId,
-        fullname: "User Manager",
-        email: "user.manager@mindbrix.com",
-        emailVerified: true,
-
-        password: hashString("superadmin"),
-
-        roleId: "userManager",
-      };
-
-      const { createUser, getUserById } = require("dbLayer");
-      const absUser = await getUserById(absUserData.id);
-      if (!absUser) {
-        await createUser(absUserData);
-      } else {
-        delete absUserData.id;
-        await updateUserById(userManagerId, absUserData);
-      }
-    } catch (err) {
-      hexaLogger.insertError("Error while creating user manager user", err);
     }
   }
 

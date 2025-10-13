@@ -296,13 +296,11 @@ _Default access route_ : _PATCH_ `/v1/users/:userId`
 
 #### Parameters
 
-The updateUser api has got 3 parameters
+The updateUser api has got 1 parameter
 
-| Parameter | Type   | Required | Population             |
-| --------- | ------ | -------- | ---------------------- |
-| userId    | ID     | true     | request.params?.userId |
-| fullname  | String | false    | request.body?.fullname |
-| avatar    | String | false    | request.body?.avatar   |
+| Parameter | Type | Required | Population             |
+| --------- | ---- | -------- | ---------------------- |
+| userId    | ID   | true     | request.params?.userId |
 
 To access the api you can use the **REST** controller with the path **PATCH /v1/users/:userId**
 
@@ -310,10 +308,7 @@ To access the api you can use the **REST** controller with the path **PATCH /v1/
 axios({
   method: "PATCH",
   url: `/v1/users/${userId}`,
-  data: {
-    fullname: "String",
-    avatar: "String",
-  },
+  data: {},
   params: {},
 });
 ```

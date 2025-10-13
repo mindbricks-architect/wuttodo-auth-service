@@ -151,7 +151,7 @@
         "tags": [
           "user"
         ],
-        "summary": "The updateUser API has 3 parameters.",
+        "summary": "The updateUser API has 1 parameter.",
         "description": "To access the route, the session should have roles: **[superAdmin, admin]**.",
         "parameters": [
           {
@@ -1107,16 +1107,7 @@
       },
       "updateUser": {
         "type": "object",
-        "properties": {
-          "fullname": {
-            "type": "string",
-            "nullable": true
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          }
-        },
+        "properties": {},
         "additionalProperties": false
       },
       "deleteUser": {

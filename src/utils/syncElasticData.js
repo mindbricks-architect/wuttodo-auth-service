@@ -32,6 +32,7 @@ const syncElasticIndexData = async () => {
     console.log("User agregated data is indexed, total users:", dataCount);
   } catch (err) {
     console.log("Elastic Index Error When Syncing User data", err.toString());
+    console.log(err);
   }
 
   const elapsedTime = new Date() - startTime;

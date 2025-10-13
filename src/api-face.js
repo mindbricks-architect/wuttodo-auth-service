@@ -90,10 +90,7 @@ module.exports = (app) => {
 
             body: {
               type: "json",
-              content: {
-                fullname: "String",
-                avatar: "String",
-              },
+              content: {},
             },
 
             parameters: [

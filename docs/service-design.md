@@ -1,7 +1,7 @@
 # Service Design Specification
 
 **Athentication documentation**
--Version:**`1.0.2`**
+-Version:**`1.0.3`**
 
 ## Scope
 
@@ -95,7 +95,7 @@ These definitions allow Mindbricks to dynamically extract identity and authoriza
 
 ### User Settings
 
-**Super Admin User Email**: `admin@admin.com`\*\*
+**Super Admin User Email**: `admin@admin.comm`\*\*
 The login email of the super admin user. This user has full permissions across the project and is not tenant-scoped.
 If not defined, the project owner's email is used.
 This email must be unique and valid to support email-based features like verification and password reset.

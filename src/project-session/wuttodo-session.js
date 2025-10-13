@@ -11,7 +11,6 @@ class WuttodoSession extends HexaAuth {
 
       admin: "admin",
       user: "user",
-      userManager: "userManager",
     };
 
     this.projectName = "wuttodo";
